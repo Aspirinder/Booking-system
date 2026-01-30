@@ -23,13 +23,13 @@ public class Main {
     @Bean
     public CommandLineRunner testDB(UserRepository userRepository, ResourceRepository resourceRepository, BookingRepository bookingRepository) {
         return (args) -> {
-            User testUser = new User();
-            testUser.setName("Алексей");
+            User testUser = new User(); // new User
+            testUser.setName("Alex");
             testUser.setEmail("alex@example.com");
             testUser.setRole("ADMIN");
             User savedUser = userRepository.save(testUser);
 
-            Resource testResource = new Resource();
+            Resource testResource = new Resource(); // new Room
             testResource.setName("Room 1");
             testResource.setDescription("description");
             testResource.setType("Office");
@@ -38,7 +38,7 @@ public class Main {
             Resource savedResource = resourceRepository.save(testResource);
 
 
-            Booking testBooking = new Booking();
+            Booking testBooking = new Booking(); // make Booking
             testBooking.setUser_id(savedUser.getUser_id());
             testBooking.setResource_id(savedResource.getResource_id());
             testBooking.setStart_time(LocalDateTime.now());
@@ -47,8 +47,7 @@ public class Main {
 
             bookingRepository.save(testBooking);
 
-            System.out.println("Бронирование успешно создано!");
-            System.out.println("Всего броней в базе: " + bookingRepository.count());
+            System.out.println("Count of bookings: " + bookingRepository.count());
         };
     }
 }
