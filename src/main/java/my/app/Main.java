@@ -23,7 +23,7 @@ public class Main {
     @Bean
     public CommandLineRunner testDB(UserRepository userRepository, ResourceRepository resourceRepository, BookingRepository bookingRepository) {
         return (args) -> {
-            User testUser = new User(); // new User
+            /*User testUser = new User(); // new User
             testUser.setName("Alex");
             testUser.setEmail("alex@example.com");
             testUser.setRole("ADMIN");
@@ -37,7 +37,6 @@ public class Main {
 
             Resource savedResource = resourceRepository.save(testResource);
 
-
             Booking testBooking = new Booking(); // make Booking
             testBooking.setUser_id(savedUser.getUser_id());
             testBooking.setResource_id(savedResource.getResource_id());
@@ -47,7 +46,7 @@ public class Main {
 
             bookingRepository.save(testBooking);
 
-            System.out.println("Count of bookings: " + bookingRepository.count());
+            System.out.println("Count of bookings: " + bookingRepository.count());*/
         };
     }
 }

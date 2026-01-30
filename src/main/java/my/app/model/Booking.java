@@ -1,6 +1,7 @@
 package my.app.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,9 +20,11 @@ public class Booking {
     @Column(name = "resource_id")
     private Long resource_id;
 
+    @Future(message = "The start date must be in the future")
     @Column(name = "start_time")
     private LocalDateTime start_time;
 
+    @Future(message = "The end date must be in the future")
     @Column(name = "end_time")
     private LocalDateTime end_time;
 

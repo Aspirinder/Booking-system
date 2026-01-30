@@ -1,6 +1,8 @@
 package my.app.controller;
 
 
+import jakarta.validation.Valid;
+import my.app.BookingService;
 import my.app.model.Booking;
 import my.app.repository.BookingRepository;
 import org.springframework.web.bind.annotation.*;
@@ -11,29 +13,26 @@ import java.util.List;
 @RequestMapping("/api/bookings")
 public class BookingController {
 
-    private final BookingRepository bookingRepository;
+    private final BookingService bookingService;
 
 
-    public BookingController(BookingRepository bookingRepository) {
-        this.bookingRepository = bookingRepository;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
     @GetMapping
     public List<Booking> getBookings() {
-        return bookingRepository.findAll();
+        return bookingService.getAll();
     }
 
     @PostMapping
-    public Booking createBooking(@RequestBody Booking booking) {
-        if(booking.getStatus() == null){
-            booking.setStatus("NEW");
-        }
-        return bookingRepository.save(booking);
+    public Booking createBooking(@Valid @RequestBody Booking booking) {
+        return bookingService.saveBooking(booking);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Long id) {
-        bookingRepository.deleteById(id);
+        bookingService.deleteBooking(id);
         System.out.println("Booking ID " + id + " was deleted.");
     }
 }
