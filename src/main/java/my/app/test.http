@@ -2,13 +2,11 @@
 
 //GET http://localhost:8080/api/bookings
 
-POST http://localhost:8080/api/bookings
+PUT http://localhost:8080/api/bookings/8
 Content-Type: application/json
 
 {
-  "user_id": 1,
-  "resource_id": 4,
-  "start_time": "2027-02-01T13:00:00",
-  "end_time": "2026-02-01T15:00:00",
-  "status": "NEW"
+
+  "start_time": "2026-03-01T18:00:00",
+  "end_time": "2026-03-01T17:00:00"
 }

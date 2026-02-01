@@ -35,4 +35,9 @@ public class BookingController {
         bookingService.deleteBooking(id);
         System.out.println("Booking ID " + id + " was deleted.");
     }
+
+    @PutMapping("/{id}")
+    public Booking updateBooking(@PathVariable Long id, @Valid @RequestBody Booking booking) {
+        return bookingService.updateBooking(booking, id);
+    }
 }

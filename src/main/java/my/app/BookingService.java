@@ -1,12 +1,9 @@
 package my.app;
 
-import jakarta.annotation.PostConstruct;
 import my.app.exception.BookingConflictException;
 import my.app.model.Booking;
 import my.app.repository.BookingRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -20,9 +17,15 @@ public class BookingService {
     }
 
     public Booking saveBooking(Booking newBooking) {
+        if (newBooking.getEnd_time().isBefore(newBooking.getStart_time())) {
+            throw new BookingConflictException("End time cannot be before start time!");
+        }
 
         List<Booking> bookings = bookingRepository.findAll();
         for (Booking booking : bookings) {
+            if(booking.getBooking_id().equals(newBooking.getBooking_id())) {
+                continue;
+            }
             if (booking.getResource_id().equals(newBooking.getResource_id())) {
                 boolean intersects = newBooking.getStart_time().isBefore(booking.getEnd_time()) &&
                         newBooking.getEnd_time().isAfter(booking.getStart_time());
@@ -34,6 +37,20 @@ public class BookingService {
 
         }
         return bookingRepository.save(newBooking);
+    }
+
+    public Booking updateBooking(Booking updatedBooking, Long id) {
+        Booking existingBooking = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking " + id + " not found"));
+
+        if (updatedBooking.getStart_time() != null) {
+            existingBooking.setStart_time(updatedBooking.getStart_time());
+        }
+        if (updatedBooking.getEnd_time() != null) {
+            existingBooking.setEnd_time(updatedBooking.getEnd_time());
+        }
+
+        return saveBooking(existingBooking);
     }
 
     public List<Booking> getAll(){
