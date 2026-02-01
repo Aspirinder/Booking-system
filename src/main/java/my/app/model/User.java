@@ -10,9 +10,10 @@ import lombok.Data;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userID;
 
     private String name;
     private String email;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserStatus role;
 }

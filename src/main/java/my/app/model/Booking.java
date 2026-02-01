@@ -2,7 +2,7 @@ package my.app.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,21 +12,23 @@ import java.time.LocalDateTime;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long booking_id;
+    private Long bookingID;
 
-    @Column(name = "user_id")
-    private Long user_id;
+    @Column(name = "userID")
+    private Long userID;
 
-    @Column(name = "resource_id")
-    private Long resource_id;
+    @Column(name = "resourceID")
+    private Long resourceID;
 
     @Future(message = "The start date must be in the future")
-    @Column(name = "start_time")
-    private LocalDateTime start_time;
+    @Column(name = "startTime")
+    private LocalDateTime startTime;
 
     @Future(message = "The end date must be in the future")
-    @Column(name = "end_time")
-    private LocalDateTime end_time;
+    @Column(name = "endTime")
+    private LocalDateTime endTime;
 
-    public String status;
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
+
 }

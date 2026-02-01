@@ -1,8 +1,6 @@
 package my.app;
 
-import my.app.model.Booking;
-import my.app.model.Resource;
-import my.app.model.User;
+import my.app.model.*;
 import my.app.repository.BookingRepository;
 import my.app.repository.ResourceRepository;
 import my.app.repository.UserRepository;
@@ -24,13 +22,13 @@ public class Main {
     public CommandLineRunner testDB(UserRepository userRepository, ResourceRepository resourceRepository, BookingRepository bookingRepository) {
         return (args) -> {
             /*User testUser = new User(); // new User
-            testUser.setName("Alex");
+            testUser.setName("Anton");
             testUser.setEmail("alex@example.com");
-            testUser.setRole("ADMIN");
+            testUser.setRole(UserStatus.ADMIN);
             User savedUser = userRepository.save(testUser);
 
             Resource testResource = new Resource(); // new Room
-            testResource.setName("Room 1");
+            testResource.setName("Room 2");
             testResource.setDescription("description");
             testResource.setType("Office");
             testResource.setPrice(100);
@@ -38,11 +36,11 @@ public class Main {
             Resource savedResource = resourceRepository.save(testResource);
 
             Booking testBooking = new Booking(); // make Booking
-            testBooking.setUser_id(savedUser.getUser_id());
-            testBooking.setResource_id(savedResource.getResource_id());
-            testBooking.setStart_time(LocalDateTime.now());
-            testBooking.setEnd_time(LocalDateTime.now().plusHours(2));
-            testBooking.setStatus("COMPLETED");
+            testBooking.setUserID(savedUser.getUserID());
+            testBooking.setResourceID(savedResource.getResourceID());
+            testBooking.setStartTime(LocalDateTime.now().plusDays(1));
+            testBooking.setEndTime(LocalDateTime.now().plusDays(1).plusHours(2));
+            testBooking.setStatus(BookingStatus.NEW);
 
             bookingRepository.save(testBooking);
 
